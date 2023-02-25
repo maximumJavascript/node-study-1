@@ -1,4 +1,5 @@
-import * as http from 'http';
+import * as http from 'node:http';
+import { EventEmitter } from 'node:events';
 
 export const server = http.createServer((req, res) => {
 	if (!req.url) return res.end();
@@ -19,3 +20,11 @@ export const server = http.createServer((req, res) => {
 });
 
 server.listen(3050);
+
+const emitter = new EventEmitter();
+const callback = () => setTimeout(() => console.log('aboba'));
+
+emitter.setMaxListeners(1);
+
+emitter.on('aboba', callback);
+emitter.on('aboba', callback);
